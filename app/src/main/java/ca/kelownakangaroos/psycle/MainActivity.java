@@ -17,27 +17,12 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int id = v.getId();
                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                Button button = (Button) v;
 
-                switch (id) {
-                    case R.id.btn_washroom:
-                        intent.putExtra("Title", R.string.btn_washroom);
-                        break;
-                    case R.id.btn_water_fountain:
-                        intent.putExtra("Title", R.string.btn_water_fountain);
-                        break;
-                    case R.id.btn_addiction_clinic:
-                        intent.putExtra("Title", R.string.btn_addiction_clinic);
-                        break;
-                    case R.id.btn_hospital:
-                        intent.putExtra("Title", R.string.btn_hospital);
-                        break;
-                }
+                intent.putExtra("Title", button.getText());
 
                 startActivity(intent);
-
-                System.out.println("Id is " + id);
             }
         };
 
