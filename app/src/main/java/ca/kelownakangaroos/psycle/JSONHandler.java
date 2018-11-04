@@ -2,6 +2,11 @@ package ca.kelownakangaroos.psycle;
 
 import android.content.Context;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,6 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class JSONHandler {
     private static final String TAG = "JSONHandler";
@@ -25,11 +31,41 @@ public class JSONHandler {
         this.context = context;
     }
 
+    public void getNamesFromJsonString(String jsonString, ArrayList<String> listOfNames) {
+        try {
+            JSONArray features = new JSONObject(jsonString).getJSONArray("features");
+            for (int index = 0; index < features.length(); index++) {
+                listOfNames.add(getNameFromJson(features.getJSONObject(index)));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getNameFromJson(JSONObject featuresObject) {
+        String name;
+
+        try {
+            name = featuresObject.getJSONObject("properties").getString("Name");
+            return name;
+        } catch (JSONException e) {
+            try {
+                name = featuresObject.getJSONObject("properties").getString("BLDGNAM");
+                return name;
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+                return null;
+            }
+        }
+    }
+
+    @Deprecated
     public void saveJsonDataFromWeb(String fileUrl, String fileName) {
         saveJsonDataToLocal(getJsonDataFromWeb(fileUrl), fileName);
     }
 
-    private String getJsonDataFromWeb(String fileUrl) {
+    public String getJsonDataFromWeb(String fileUrl) {
         String response = null;
         try {
             URL url = new URL(fileUrl);
@@ -40,6 +76,8 @@ public class JSONHandler {
             // read the response
             InputStream in = new BufferedInputStream(conn.getInputStream());
             response = convertStreamToString(in);
+
+            Log.d(TAG, "Web request");
 
         } catch (MalformedURLException e) {
             Log.e(TAG, "MalformedURLException: " + e.getMessage());
@@ -74,6 +112,7 @@ public class JSONHandler {
         return sb.toString();
     }
 
+    @Deprecated
     public String getJsonDataFromLocal(String fileName) {
         File file = new File(context.getFilesDir(), fileName);
         StringBuilder sb = new StringBuilder();
@@ -96,7 +135,8 @@ public class JSONHandler {
         return sb.toString();
     }
 
-    private void saveJsonDataToLocal(String jsonData, String fileName) {
+    @Deprecated
+    public void saveJsonDataToLocal(String jsonData, String fileName) {
         try {
             File file = new File(context.getFilesDir(), fileName);
             Writer output = new BufferedWriter(new FileWriter(file));
