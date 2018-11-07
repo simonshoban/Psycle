@@ -8,11 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -37,17 +33,8 @@ public class MainActivity extends AppCompatActivity {
         serializedFileLocation = this.getFilesDir() + "locationObjects";
 
         try {
-            FileInputStream fis = new FileInputStream(serializedFileLocation);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            listOfNames = (ArrayList<ArrayList<String>>) ois.readObject();
-            ois.close();
-            fis.close();
-
-            for (ArrayList<String> temp_List : listOfNames) {
-                for (String location : temp_List) {
-                    System.out.println(location);
-                }
-            }
+            ArrayListUtils.deserializeDoubleArrayList(listOfNames, serializedFileLocation);
+            ArrayListUtils.printDoubleArrayList(listOfNames);
 
         } catch (IOException ioe){
             // If serialized file does not exist or cannot be read, get data from web
@@ -102,11 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 jsonHandler.getNamesFromJsonString(jsonBlob, listOfNames.get().get(index));
 
                 try {
-                    FileOutputStream fos = new FileOutputStream(serializedFileLocation.get());
-                    ObjectOutputStream oos = new ObjectOutputStream(fos);
-                    oos.writeObject(listOfNames.get());
-                    oos.close();
-                    fos.close();
+                    ArrayListUtils.serializeDoubleArrayList(listOfNames.get(), serializedFileLocation.get());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -123,11 +106,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            for (ArrayList<String> temp_List : listOfNames.get()) {
-                for (String name : temp_List) {
-                    System.out.println(name);
-                }
-            }
+            ArrayListUtils.printDoubleArrayList(listOfNames.get());
         }
     }
 }
