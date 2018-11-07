@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<ArrayList<String>> listOfNames;
 
+    private String serializedFileLocation;
+
     private static String[] fileUrlArray = {
             "http://opendata.newwestcity.ca/downloads/drinking-fountains/DRINKING_FOUNTAINS.json",
             "http://opendata.newwestcity.ca/downloads/accessible-public-washrooms/WASHROOMS.json",
@@ -32,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        serializedFileLocation = this.getFilesDir() + "locationObjects";
 
         try {
-            FileInputStream fis = new FileInputStream(this.getFilesDir() + "locations");
+            FileInputStream fis = new FileInputStream(serializedFileLocation);
             ObjectInputStream ois = new ObjectInputStream(fis);
             listOfNames = (ArrayList<ArrayList<String>>) ois.readObject();
             ois.close();
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException ioe){
             // If serialized file does not exist or cannot be read, get data from web
             listOfNames = new ArrayList<>();
-            new JSONLoader(this, listOfNames).execute();
+            new JSONLoader(this, listOfNames, serializedFileLocation).execute();
         } catch (ClassNotFoundException c){
             System.out.println("Class not found");
             c.printStackTrace();
@@ -81,10 +84,12 @@ public class MainActivity extends AppCompatActivity {
     static class JSONLoader extends AsyncTask<Void, Void, Void> {
         private WeakReference<Context> context;
         private WeakReference<ArrayList<ArrayList<String>>> listOfNames;
+        private WeakReference<String> serializedFileLocation;
 
-        JSONLoader(Context context, ArrayList<ArrayList<String>> listOfNames) {
+        JSONLoader(Context context, ArrayList<ArrayList<String>> listOfNames, String serializedFileLocation) {
             this.context = new WeakReference<>(context);
             this.listOfNames = new WeakReference<>(listOfNames);
+            this.serializedFileLocation = new WeakReference<>(serializedFileLocation);
         }
 
         private void loadJsonData() {
@@ -97,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 jsonHandler.getNamesFromJsonString(jsonBlob, listOfNames.get().get(index));
 
                 try {
-                    FileOutputStream fos = new FileOutputStream(context.get().getFilesDir() + "locations");
+                    FileOutputStream fos = new FileOutputStream(serializedFileLocation.get());
                     ObjectOutputStream oos = new ObjectOutputStream(fos);
                     oos.writeObject(listOfNames.get());
                     oos.close();
