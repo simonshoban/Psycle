@@ -17,7 +17,16 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<String> listOfNames;
+
+    private ArrayList<ArrayList<String>> listOfNames;
+
+    private static String[] fileUrlArray = {
+            "http://opendata.newwestcity.ca/downloads/drinking-fountains/DRINKING_FOUNTAINS.json",
+            "http://opendata.newwestcity.ca/downloads/accessible-public-washrooms/WASHROOMS.json",
+            "http://opendata.newwestcity.ca/downloads/significant-buildings-hospitals/SIGNIFICANT_BLDG_HOSPITALS.json",
+            "http://opendata.newwestcity.ca/downloads/care-homes/CARE_HOMES.json",
+            "http://opendata.newwestcity.ca/downloads/health/HEALTH_MENTAL_HEALTH_AND_ADDICTIONS_SERVICES.json"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +36,14 @@ public class MainActivity extends AppCompatActivity {
         try {
             FileInputStream fis = new FileInputStream(this.getFilesDir() + "locations");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            listOfNames = (ArrayList) ois.readObject();
+            listOfNames = (ArrayList<ArrayList<String>>) ois.readObject();
             ois.close();
             fis.close();
 
-            for (String location : listOfNames) {
-                System.out.println(location);
+            for (ArrayList<String> temp_List : listOfNames) {
+                for (String location : temp_List) {
+                    System.out.println(location);
+                }
             }
 
         } catch (IOException ioe){
@@ -69,23 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
     static class JSONLoader extends AsyncTask<Void, Void, Void> {
         private WeakReference<Context> context;
-        private WeakReference<ArrayList<String>> listOfNames;
-        private String[] fileUrlArray = {
-                "http://opendata.newwestcity.ca/downloads/drinking-fountains/DRINKING_FOUNTAINS.json",
-                "http://opendata.newwestcity.ca/downloads/accessible-public-washrooms/WASHROOMS.json",
-                "http://opendata.newwestcity.ca/downloads/significant-buildings-hospitals/SIGNIFICANT_BLDG_HOSPITALS.json",
-                "http://opendata.newwestcity.ca/downloads/care-homes/CARE_HOMES.json",
-                "http://opendata.newwestcity.ca/downloads/health/HEALTH_MENTAL_HEALTH_AND_ADDICTIONS_SERVICES.json"
-        };
-        private String[] fileLocationArray = {
-                "fountains.json",
-                "washrooms,json",
-                "hospitals.json",
-                "careHomes.json",
-                "mentalHealthAndAddictions.json"
-        };
+        private WeakReference<ArrayList<ArrayList<String>>> listOfNames;
 
-        JSONLoader(Context context, ArrayList<String> listOfNames) {
+        JSONLoader(Context context, ArrayList<ArrayList<String>> listOfNames) {
             this.context = new WeakReference<>(context);
             this.listOfNames = new WeakReference<>(listOfNames);
         }
@@ -93,14 +90,11 @@ public class MainActivity extends AppCompatActivity {
         private void loadJsonData() {
             JSONHandler jsonHandler = new JSONHandler(context.get());
 
-            if (fileUrlArray.length != fileLocationArray.length) {
-                throw new IllegalStateException("Unequal number of URLs and file locations");
-            }
-
             for (int index = 0; index < fileUrlArray.length; index++) {
+                listOfNames.get().add(new ArrayList<String>());
                 String jsonBlob = jsonHandler.getJsonDataFromWeb(fileUrlArray[index]);
 
-                jsonHandler.getNamesFromJsonString(jsonBlob, listOfNames.get());
+                jsonHandler.getNamesFromJsonString(jsonBlob, listOfNames.get().get(index));
 
                 try {
                     FileOutputStream fos = new FileOutputStream(context.get().getFilesDir() + "locations");
@@ -124,8 +118,10 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-            for (String name : listOfNames.get()) {
-                System.out.println(name);
+            for (ArrayList<String> temp_List : listOfNames.get()) {
+                for (String name : temp_List) {
+                    System.out.println(name);
+                }
             }
         }
     }
