@@ -9,12 +9,14 @@ import java.util.ArrayList;
 
 public class ArrayListUtils {
 
-    public static <T> void deserializeDoubleArrayList(ArrayList<ArrayList<T>> list, String fileLocation) throws IOException, ClassNotFoundException {
+    public static <T> ArrayList<ArrayList<T>> deserializeDoubleArrayList(String fileLocation) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(fileLocation);
         ObjectInputStream ois = new ObjectInputStream(fis);
-        list = (ArrayList<ArrayList<T>>) ois.readObject();
+        ArrayList<ArrayList<T>> list = (ArrayList<ArrayList<T>>) ois.readObject();
         ois.close();
         fis.close();
+
+        return list;
     }
 
     public static <T> void serializeDoubleArrayList(ArrayList<ArrayList<T>> list, String fileLocation) throws IOException {

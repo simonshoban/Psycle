@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         serializedFileLocation = this.getFilesDir() + "locationObjects";
 
         try {
-            ArrayListUtils.deserializeDoubleArrayList(listOfNames, serializedFileLocation);
+            listOfNames = ArrayListUtils.deserializeDoubleArrayList(serializedFileLocation);
             ArrayListUtils.printDoubleArrayList(listOfNames);
 
         } catch (IOException ioe){
