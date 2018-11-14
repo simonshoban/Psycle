@@ -31,11 +31,11 @@ public class JSONHandler {
         this.context = context;
     }
 
-    public void getNamesFromJsonString(String jsonString, ArrayList<String> listOfNames) {
+    public void getNamesFromJsonString(String jsonString, ArrayList<Location> listOfLocations) {
         try {
             JSONArray features = new JSONObject(jsonString).getJSONArray("features");
             for (int index = 0; index < features.length(); index++) {
-                listOfNames.add(getNameFromJson(features.getJSONObject(index)));
+                listOfLocations.add(getLocationFromJson(features.getJSONObject(index)));
             }
 
         } catch (JSONException e) {
@@ -58,6 +58,28 @@ public class JSONHandler {
                 return null;
             }
         }
+    }
+
+    private Location getLocationFromJson(JSONObject featuresObject) {
+        String name = "";
+        double latitude = 0;
+        double longitude = 0;
+
+        try {
+            latitude = featuresObject.getJSONObject("properties").getDouble("Y");
+            longitude = featuresObject.getJSONObject("properties").getDouble("X");
+
+            name = featuresObject.getJSONObject("properties").getString("Name");
+        } catch (JSONException e) {
+            try {
+                name = featuresObject.getJSONObject("properties").getString("BLDGNAM");
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+                return null;
+            }
+        }
+
+        return new Location(latitude, longitude, name);
     }
 
     @Deprecated

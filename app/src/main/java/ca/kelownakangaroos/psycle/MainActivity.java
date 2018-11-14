@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<ArrayList<String>> listOfNames;
+    private ArrayList<ArrayList<Location>> listOfNames;
 
     private String serializedFileLocation;
 
@@ -70,10 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
     static class JSONLoader extends AsyncTask<Void, Void, Void> {
         private WeakReference<Context> context;
-        private WeakReference<ArrayList<ArrayList<String>>> listOfNames;
+        private WeakReference<ArrayList<ArrayList<Location>>> listOfNames;
         private WeakReference<String> serializedFileLocation;
 
-        JSONLoader(Context context, ArrayList<ArrayList<String>> listOfNames, String serializedFileLocation) {
+        JSONLoader(Context context, ArrayList<ArrayList<Location>> listOfNames, String serializedFileLocation) {
             this.context = new WeakReference<>(context);
             this.listOfNames = new WeakReference<>(listOfNames);
             this.serializedFileLocation = new WeakReference<>(serializedFileLocation);
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             JSONHandler jsonHandler = new JSONHandler(context.get());
 
             for (int index = 0; index < fileUrlArray.length; index++) {
-                listOfNames.get().add(new ArrayList<String>());
+                listOfNames.get().add(new ArrayList<Location>());
                 String jsonBlob = jsonHandler.getJsonDataFromWeb(fileUrlArray[index]);
 
                 jsonHandler.getNamesFromJsonString(jsonBlob, listOfNames.get().get(index));
