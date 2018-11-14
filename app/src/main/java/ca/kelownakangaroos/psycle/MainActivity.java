@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<ArrayList<Location>> listOfNames;
+    private ArrayList<ArrayList<Location>> listOfLocations;
 
     private String serializedFileLocation;
 
@@ -33,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
         serializedFileLocation = this.getFilesDir() + "locationObjects";
 
         try {
-            listOfNames = ArrayListUtils.deserializeDoubleArrayList(serializedFileLocation);
-            ArrayListUtils.printDoubleArrayList(listOfNames);
+            listOfLocations = ArrayListUtils.deserializeDoubleArrayList(serializedFileLocation);
+            ArrayListUtils.printDoubleArrayList(listOfLocations);
 
         } catch (IOException ioe){
             // If serialized file does not exist or cannot be read, get data from web
-            listOfNames = new ArrayList<>();
-            new JSONLoader(this, listOfNames, serializedFileLocation).execute();
+            listOfLocations = new ArrayList<>();
+            new JSONLoader(this, listOfLocations, serializedFileLocation).execute();
         } catch (ClassNotFoundException c){
             System.out.println("Class not found");
             c.printStackTrace();
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 Button button = (Button) viewElement;
 
                 intent.putExtra("Title", button.getText());
-
+                intent.putExtra("locations", listOfLocations);
                 startActivity(intent);
             }
         };

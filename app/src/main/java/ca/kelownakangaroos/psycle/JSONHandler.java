@@ -3,6 +3,8 @@ package ca.kelownakangaroos.psycle;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,6 +67,7 @@ public class JSONHandler {
         double latitude = 0;
         double longitude = 0;
 
+
         try {
             latitude = featuresObject.getJSONObject("properties").getDouble("Y");
             longitude = featuresObject.getJSONObject("properties").getDouble("X");
@@ -79,7 +82,7 @@ public class JSONHandler {
             }
         }
 
-        return new Location(latitude, longitude, name);
+        return new Location(new LatLng(latitude, longitude), name, latitude, longitude);
     }
 
     @Deprecated

@@ -1,36 +1,36 @@
 package ca.kelownakangaroos.psycle;
 
-public class Location {
+import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
+
+public class Location implements Serializable {
+
+    private String name;
     private double latitude;
     private double longitude;
-    private String name;
 
-    public Location(double latitude, double longitude, String name) {
+    public Location(LatLng coordinates, String name, double latitude, double longitude) {
+        this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.name = name;
     }
 
-    public double getLongitude() {
-        return longitude;
-    }
-
-    @Override
-    public String toString() {
-        return "Location{" +
-                "latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
 
     public String getName() {
         return name;
     }
 
+    public LatLng getLatLng(){
+        return new LatLng(latitude, longitude);
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "name='" + name + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
+    }
 }

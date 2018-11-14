@@ -11,9 +11,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final float DEFAULT_ZOOM = 14;
     private GoogleMap mMap;
+    private ArrayList<ArrayList<Location>> listOfLocations;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +25,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         setTitle((String) getIntent().getExtras().get("Title"));
-
+        listOfLocations = (ArrayList<ArrayList<Location>>) getIntent().getSerializableExtra("locations");
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -40,11 +44,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+
         mMap = googleMap;
 
         // Add a marker in New West and move the camera
         LatLng newWest = new LatLng(49.203, -122.919);
         mMap.addMarker(new MarkerOptions().position(newWest).title("Marker in New West"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newWest, DEFAULT_ZOOM));
+
+
+        for(ArrayList<Location> list : listOfLocations){
+            for(Location loc : list){
+                mMap.addMarker(new MarkerOptions().position(loc.getLatLng()).title(loc.getName()));
+            }
+        }
+
+
     }
 }
