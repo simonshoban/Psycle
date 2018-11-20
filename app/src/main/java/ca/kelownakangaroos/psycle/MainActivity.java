@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         };
-
         findViewById(R.id.btn_washroom).setOnClickListener(listener);
         findViewById(R.id.btn_water_fountain).setOnClickListener(listener);
         findViewById(R.id.btn_addiction_clinic).setOnClickListener(listener);
         findViewById(R.id.btn_hospital).setOnClickListener(listener);
+        findViewById(R.id.btn_care_home).setOnClickListener(listener);
     }
 
     static class JSONLoader extends AsyncTask<Void, Void, Void> {

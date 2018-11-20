@@ -5,4 +5,5 @@
     <string name="btn_water_fountain">Water Fountains</string>
     <string name="btn_addiction_clinic">Addiction Clinics</string>
     <string name="btn_hospital">Hospitals</string>
+    <string name="btn_care_home">Care Homes</string>
 </resources>
