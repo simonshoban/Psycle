@@ -57,15 +57,33 @@ public class MainActivity extends AppCompatActivity {
                 Button button = (Button) viewElement;
 
                 intent.putExtra("Title", button.getText());
-                intent.putExtra("locations", listOfLocations);
+
+                switch (viewElement.getId()) {
+                    case R.id.btn_water_fountain:
+                        intent.putExtra("places", listOfLocations.get(0));
+                        break;
+                    case R.id.btn_washroom:
+                        intent.putExtra("places", listOfLocations.get(1));
+                        break;
+                    case R.id.btn_hospital:
+                        intent.putExtra("places", listOfLocations.get(2));
+                        break;
+                    case R.id.btn_addiction_clinic:
+                        intent.putExtra("places", listOfLocations.get(4));
+                        break;
+                    default:
+                        //do nothing
+                        break;
+                }
                 startActivity(intent);
             }
         };
 
         findViewById(R.id.btn_washroom).setOnClickListener(listener);
         findViewById(R.id.btn_water_fountain).setOnClickListener(listener);
-        findViewById(R.id.btn_addiction_clinic).setOnClickListener(listener);
         findViewById(R.id.btn_hospital).setOnClickListener(listener);
+        findViewById(R.id.btn_addiction_clinic).setOnClickListener(listener);
+
     }
 
     static class JSONLoader extends AsyncTask<Void, Void, Void> {
