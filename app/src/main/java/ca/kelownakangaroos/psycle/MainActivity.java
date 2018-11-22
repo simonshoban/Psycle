@@ -14,10 +14,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<ArrayList<Location>> listOfLocations;
-
-    private String serializedFileLocation;
-
     private static String[] fileUrlArray = {
             "http://opendata.newwestcity.ca/downloads/drinking-fountains/DRINKING_FOUNTAINS.json",
             "http://opendata.newwestcity.ca/downloads/accessible-public-washrooms/WASHROOMS.json",
@@ -26,6 +22,13 @@ public class MainActivity extends AppCompatActivity {
             "http://opendata.newwestcity.ca/downloads/health/HEALTH_MENTAL_HEALTH_AND_ADDICTIONS_SERVICES.json"
     };
 
+    private ArrayList<ArrayList<Location>> listOfLocations;
+    private String serializedFileLocation;
+
+    /**
+     * Loads location data first by checking for a local serialized file, if that file
+     * doesn't exist then it grabs the data from the internet. Sets button onclick listeners.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         setButtonOnClickListeners();
     }
 
+    /**
+     * Sets button onclick listeners to start the MapsActivity with the relevant data.
+     */
     private void setButtonOnClickListeners() {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -77,9 +83,11 @@ public class MainActivity extends AppCompatActivity {
                         //do nothing
                         break;
                 }
+
                 startActivity(intent);
             }
         };
+
         findViewById(R.id.btn_washroom).setOnClickListener(listener);
         findViewById(R.id.btn_water_fountain).setOnClickListener(listener);
         findViewById(R.id.btn_hospital).setOnClickListener(listener);
