@@ -20,8 +20,9 @@
             android:layout_marginBottom="0dp"
             android:orientation="horizontal">
 
-            <Button
+            <LinearLayout
                 android:id="@+id/btn_washroom"
+                android:orientation="vertical"
                 android:layout_width="190dp"
                 android:layout_height="190dp"
                 android:layout_marginStart="10dp"
@@ -29,10 +30,26 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
                 android:layout_weight="2"
-                android:text="@string/btn_washroom"/>
+                android:tag="@string/btn_washroom"
+                android:gravity="center_vertical">
 
-            <Button
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="@string/btn_washroom"
+                    android:src="@drawable/ic_baseline_wc_24px"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/btn_washroom"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/btn_water_fountain"
+                android:orientation="vertical"
                 android:layout_width="190dp"
                 android:layout_height="190dp"
                 android:layout_marginStart="10dp"
@@ -40,7 +57,22 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
                 android:layout_weight="2"
-                android:text="@string/btn_water_fountain"/>
+                android:tag="@string/btn_washroom"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="@string/btn_water_fountain"
+                    android:src="@drawable/ic_fountain"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/btn_water_fountain"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -53,8 +85,9 @@
             android:layout_marginBottom="0dp"
             android:orientation="horizontal">
 
-            <Button
+            <LinearLayout
                 android:id="@+id/btn_addiction_clinic"
+                android:orientation="vertical"
                 android:layout_width="190dp"
                 android:layout_height="190dp"
                 android:layout_marginStart="10dp"
@@ -62,10 +95,26 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
                 android:layout_weight="2"
-                android:text="@string/btn_addiction_clinic"/>
+                android:tag="@string/btn_addiction_clinic"
+                android:gravity="center_vertical">
 
-            <Button
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="@string/btn_addiction_clinic"
+                    android:src="@drawable/ic_needle"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/btn_addiction_clinic"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/btn_hospital"
+                android:orientation="vertical"
                 android:layout_width="190dp"
                 android:layout_height="190dp"
                 android:layout_marginStart="10dp"
@@ -73,7 +122,22 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
                 android:layout_weight="2"
-                android:text="@string/btn_hospital"/>
+                android:tag="@string/btn_hospital"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="@string/btn_hospital"
+                    android:src="@drawable/ic_hospital_building"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/btn_hospital"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -86,16 +150,32 @@
             android:layout_marginBottom="0dp"
             android:orientation="horizontal">
 
-            <Button
+            <LinearLayout
                 android:id="@+id/btn_care_home"
+                android:orientation="vertical"
                 android:layout_width="190dp"
                 android:layout_height="190dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
-                android:layout_weight="1"
-                android:text="@string/btn_care_home"/>
+                android:layout_weight="2"
+                android:tag="@string/btn_care_home"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="@string/btn_hospital"
+                    android:src="@drawable/ic_baseline_home_24px"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/btn_care_home"/>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="190dp"

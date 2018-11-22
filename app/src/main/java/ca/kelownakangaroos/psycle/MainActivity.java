@@ -54,9 +54,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View viewElement) {
                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                Button button = (Button) viewElement;
 
-                intent.putExtra("Title", button.getText());
+                intent.putExtra("Title", viewElement.getTag().toString());
 
                 switch (viewElement.getId()) {
                     case R.id.btn_water_fountain:
