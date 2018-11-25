@@ -88,6 +88,39 @@ public class JSONHandler {
             longitude = Math.atan((Math.exp((Easting - 500000) / (0.9996 * 6399593.625 / Math.sqrt((1 + 0.006739496742 * Math.pow(Math.cos(north / 6366197.724 / 0.9996), 2)))) * (1 - 0.006739496742 * Math.pow((Easting - 500000) / (0.9996 * 6399593.625 / Math.sqrt((1 + 0.006739496742 * Math.pow(Math.cos(north / 6366197.724 / 0.9996), 2)))), 2) / 2 * Math.pow(Math.cos(north / 6366197.724 / 0.9996), 2) / 3)) - Math.exp(-(Easting - 500000) / (0.9996 * 6399593.625 / Math.sqrt((1 + 0.006739496742 * Math.pow(Math.cos(north / 6366197.724 / 0.9996), 2)))) * (1 - 0.006739496742 * Math.pow((Easting - 500000) / (0.9996 * 6399593.625 / Math.sqrt((1 + 0.006739496742 * Math.pow(Math.cos(north / 6366197.724 / 0.9996), 2)))), 2) / 2 * Math.pow(Math.cos(north / 6366197.724 / 0.9996), 2) / 3))) / 2 / Math.cos((north - 0.9996 * 6399593.625 * (north / 6366197.724 / 0.9996 - 0.006739496742 * 3 / 4 * (north / 6366197.724 / 0.9996 + Math.sin(2 * north / 6366197.724 / 0.9996) / 2) + Math.pow(0.006739496742 * 3 / 4, 2) * 5 / 3 * (3 * (north / 6366197.724 / 0.9996 + Math.sin(2 * north / 6366197.724 / 0.9996) / 2) + Math.sin(2 * north / 6366197.724 / 0.9996) * Math.pow(Math.cos(north / 6366197.724 / 0.9996), 2)) / 4 - Math.pow(0.006739496742 * 3 / 4, 3) * 35 / 27 * (5 * (3 * (north / 6366197.724 / 0.9996 + Math.sin(2 * north / 6366197.724 / 0.9996) / 2) + Math.sin(2 * north / 6366197.724 / 0.9996) * Math.pow(Math.cos(north / 6366197.724 / 0.9996), 2)) / 4 + Math.sin(2 * north / 6366197.724 / 0.9996) * Math.pow(Math.cos(north / 6366197.724 / 0.9996), 2) * Math.pow(Math.cos(north / 6366197.724 / 0.9996), 2)) / 3)) / (0.9996 * 6399593.625 / Math.sqrt((1 + 0.006739496742 * Math.pow(Math.cos(north / 6366197.724 / 0.9996), 2)))) * (1 - 0.006739496742 * Math.pow((Easting - 500000) / (0.9996 * 6399593.625 / Math.sqrt((1 + 0.006739496742 * Math.pow(Math.cos(north / 6366197.724 / 0.9996), 2)))), 2) / 2 * Math.pow(Math.cos(north / 6366197.724 / 0.9996), 2)) + north / 6366197.724 / 0.9996)) * 180 / Math.PI + zone * 6 - 183;
         }
 
+        try{
+            String address;
+            String hours;
+            switch (collectionName){
+                case "WASHROOMS":
+                    address = featuresObject.getJSONObject("properties").getString("Address");
+                    hours = featuresObject.getJSONObject("properties").getString("Hours");
+                    if (hours.equals("null")){
+                        hours = "Unavailable";
+                    }
+                    return new Washroom(name, latitude, longitude, address, hours);
+                case "DRINKING_FOUNTAINS":
+                    String park = featuresObject.getJSONObject("properties").getString("ParkName");
+                    return new WaterFountain(name, latitude, longitude, park);
+                case "HEALTH_MENTAL_HEALTH_AND_ADDICTIONS_SERVICES":
+                    address = featuresObject.getJSONObject("properties").getString("Location");
+                    hours = featuresObject.getJSONObject("properties").getString("Hours");
+                    if (hours.equals("null")){
+                        hours = "Unavailable";
+                    }
+                    return new HealthService(name, latitude, longitude, address, hours);
+                case "CARE_HOMES":
+                    address = featuresObject.getJSONObject("properties").getString("STRNUM") + " " + featuresObject.getJSONObject("properties").getString("STRNAM");
+                    return new CareHome(name, latitude, longitude, address);
+                case "SIGNIFICANT_BLDG_HOSPITALS":
+                    address = featuresObject.getJSONObject("properties").getString("STRNUM") + " " + featuresObject.getJSONObject("properties").getString("STRNAM");
+                    return new Hospital(name, latitude, longitude, address);
+                default:
+                    return new Location(name, latitude, longitude);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return new Location(name, latitude, longitude);
     }
 

@@ -8,12 +8,13 @@ public class WaterFountain extends Location {
 
     private String park;
 
-    public WaterFountain(LatLng coordinates, String name, double latitude, double longitude) {
-        super(coordinates, name, latitude, longitude);
+    public WaterFountain(String name, double latitude, double longitude, String park) {
+        super(name, latitude, longitude);
+        this.park = park;
     }
 
     @Override
     public String getDescription() {
-        return name + "/n" + park;
+        return park;
     }
 }
