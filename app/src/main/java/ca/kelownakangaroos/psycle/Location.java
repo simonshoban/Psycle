@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 public class Location implements Serializable {
 
-    private String name;
-    private double latitude;
-    private double longitude;
+    protected String name;
+    protected double latitude;
+    protected double longitude;
 
     public Location(LatLng coordinates, String name, double latitude, double longitude) {
         this.name = name;
@@ -23,6 +23,11 @@ public class Location implements Serializable {
 
     public LatLng getLatLng(){
         return new LatLng(latitude, longitude);
+    }
+
+    public String getDescription(){
+
+        return  name;
     }
 
     @Override
