@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateData() {
         listOfLocations = new ArrayList<>();
-        new JSONLoader(this, listOfLocations, serializedFileLocation).execute();
+        new JSONLoader(this, this, listOfLocations, serializedFileLocation).execute();
     }
 
     /**
@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_update).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((TextView) findViewById(R.id.btn_label_update)).setText(R.string.updating_message);
                 updateData();
             }
         });
@@ -127,11 +128,13 @@ public class MainActivity extends AppCompatActivity {
 
     static class JSONLoader extends AsyncTask<Void, Void, Void> {
         private WeakReference<Context> context;
+        private WeakReference<AppCompatActivity> activity;
         private WeakReference<ArrayList<ArrayList<Location>>> listOfNames;
         private WeakReference<String> serializedFileLocation;
 
-        JSONLoader(Context context, ArrayList<ArrayList<Location>> listOfNames, String serializedFileLocation) {
+        JSONLoader(Context context, AppCompatActivity activity, ArrayList<ArrayList<Location>> listOfNames, String serializedFileLocation) {
             this.context = new WeakReference<>(context);
+            this.activity = new WeakReference<>(activity);
             this.listOfNames = new WeakReference<>(listOfNames);
             this.serializedFileLocation = new WeakReference<>(serializedFileLocation);
         }
@@ -164,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             ArrayListUtils.printDoubleArrayList(listOfNames.get());
+            ((TextView) activity.get().findViewById(R.id.btn_label_update)).setText(activity.get().getResources().getString(R.string.btn_update));
             Toast.makeText(context.get(), R.string.update_confirmation_text, Toast.LENGTH_LONG).show();
         }
     }

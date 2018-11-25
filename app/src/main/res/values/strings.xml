@@ -9,4 +9,5 @@
     <string name="btn_update">Update Data</string>
     <string name="update_confirmation_text">New Map Data Downloaded</string>
     <string name="map_opening_message">Opening...</string>
+    <string name="updating_message">Updating...</string>
 </resources>
