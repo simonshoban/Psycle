@@ -10,7 +10,7 @@ public class Location implements Serializable {
     protected double latitude;
     protected double longitude;
 
-    public Location(LatLng coordinates, String name, double latitude, double longitude) {
+    public Location(String name, double latitude, double longitude) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;

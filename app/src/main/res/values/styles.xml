@@ -6,6 +6,55 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
+        <item name="buttonStyle">@style/RobotoButtonStyle</item>
+    </style>
+
+    <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="RobotoButtonStyle" parent="android:Widget.Material.Button.Colored">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ButtonContainerStyle">
+        <item name="android:layout_width">190dp</item>
+        <item name="android:layout_height">190dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <!--<item name="android:gravity">center_vertical</item>-->
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:elevation">6dp</item>
+    </style>
+
+    <style name="PlaceholderStyle" parent="ButtonContainerStyle">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="ImageViewStyle">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">50dp</item>
+        <item name="android:layout_marginBottom">50dp</item>
+        <item name="android:tint">@color/colorWhite</item>
+    </style>
+
+    <style name="ButtonLabelStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
 </resources>

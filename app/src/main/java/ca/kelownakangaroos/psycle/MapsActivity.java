@@ -1,5 +1,8 @@
 package ca.kelownakangaroos.psycle;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +19,7 @@ import java.util.ArrayList;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final float DEFAULT_ZOOM = 14;
     private GoogleMap mMap;
-    private ArrayList<ArrayList<Location>> listOfLocations;
+    private ArrayList<Location> listOfLocations;
 
 
     @Override
@@ -25,11 +28,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         setTitle((String) getIntent().getExtras().get("Title"));
-        listOfLocations = (ArrayList<ArrayList<Location>>) getIntent().getSerializableExtra("locations");
+        listOfLocations = (ArrayList<Location>) getIntent().getSerializableExtra("places");
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+
+        mMap.setMyLocationEnabled(true);
     }
 
 
@@ -44,22 +61,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
-
         mMap = googleMap;
 
-        // Add a marker in New West and move the camera
+        // Move camera to New West
         LatLng newWest = new LatLng(49.203, -122.919);
-        mMap.addMarker(new MarkerOptions().position(newWest).title("Marker in New West"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(newWest, DEFAULT_ZOOM));
 
-
-        for(ArrayList<Location> list : listOfLocations){
-            for(Location loc : list){
-                mMap.addMarker(new MarkerOptions().position(loc.getLatLng()).title(loc.getName()));
-            }
+        for(Location loc : listOfLocations){
+            mMap.addMarker(new MarkerOptions().position(loc.getLatLng()).title(loc.getName()));
         }
-
 
     }
 }
