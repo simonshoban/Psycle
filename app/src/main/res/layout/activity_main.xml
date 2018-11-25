@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -113,7 +114,7 @@
 
                 <ImageView
                     style="@style/ImageViewStyle"
-                    android:text="@string/btn_hospital"
+                    android:text="@string/btn_care_home"
                     android:src="@drawable/ic_baseline_home_24px"/>
 
                 <TextView
@@ -122,8 +123,24 @@
 
             </LinearLayout>
 
-            <TextView
-                style="@style/PlaceholderStyle" />
+            <LinearLayout
+                style="@style/ButtonContainerStyle"
+                android:background="@color/colorWhite"
+                android:id="@+id/btn_update">
+
+                <ImageView
+                    style="@style/ImageViewStyle"
+                    android:text="@string/btn_update"
+                    android:src="@drawable/ic_refresh_white_24dp"
+                    android:tint="@color/colorPrimaryDark"/>
+
+                <TextView
+                    style="@style/ButtonLabelStyle"
+                    android:text="@string/btn_update"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@color/colorWhite"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

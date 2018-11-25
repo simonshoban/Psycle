@@ -2,8 +2,10 @@
     <string name="app_name">Psycle</string>
     <string name="title_activity_maps">Map</string>
     <string name="btn_washroom">Washrooms</string>
-    <string name="btn_water_fountain">Water Fountains</string>
+    <string name="btn_water_fountain">Drinking Fountains</string>
     <string name="btn_addiction_clinic">Addiction Clinics</string>
     <string name="btn_hospital">Hospitals</string>
     <string name="btn_care_home">Care Homes</string>
+    <string name="btn_update">Update Data</string>
+    <string name="update_confirmation_text">New Map Data Downloaded</string>
 </resources>

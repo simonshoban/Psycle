@@ -6,7 +6,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -41,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (IOException ioe){
             // If serialized file does not exist or cannot be read, get data from web
-            listOfLocations = new ArrayList<>();
-            new JSONLoader(this, listOfLocations, serializedFileLocation).execute();
+            updateData();
         } catch (ClassNotFoundException c){
             System.out.println("Class not found");
             c.printStackTrace();
@@ -52,11 +52,16 @@ public class MainActivity extends AppCompatActivity {
         setButtonOnClickListeners();
     }
 
+    private void updateData() {
+        listOfLocations = new ArrayList<>();
+        new JSONLoader(this, listOfLocations, serializedFileLocation).execute();
+    }
+
     /**
      * Sets button onclick listeners to start the MapsActivity with the relevant data.
      */
     private void setButtonOnClickListeners() {
-        View.OnClickListener listener = new View.OnClickListener() {
+        OnClickListener listener = new OnClickListener() {
             @Override
             public void onClick(View viewElement) {
                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
@@ -93,6 +98,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_hospital).setOnClickListener(listener);
         findViewById(R.id.btn_care_home).setOnClickListener(listener);
         findViewById(R.id.btn_addiction_clinic).setOnClickListener(listener);
+        findViewById(R.id.btn_update).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateData();
+            }
+        });
     }
 
     static class JSONLoader extends AsyncTask<Void, Void, Void> {
@@ -134,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             ArrayListUtils.printDoubleArrayList(listOfNames.get());
+            Toast.makeText(context.get(), R.string.update_confirmation_text, Toast.LENGTH_LONG).show();
         }
     }
 }
