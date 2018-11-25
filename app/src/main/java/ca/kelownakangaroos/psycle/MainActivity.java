@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static String MAP_TYPE_INTENT_KEY = "places";
     private static String[] fileUrlArray = {
             "http://opendata.newwestcity.ca/downloads/drinking-fountains/DRINKING_FOUNTAINS.json",
             "http://opendata.newwestcity.ca/downloads/accessible-public-washrooms/WASHROOMS.json",
@@ -52,6 +53,19 @@ public class MainActivity extends AppCompatActivity {
         setButtonOnClickListeners();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ((TextView) findViewById(R.id.btn_label_washroom)).setText(getResources().getString(R.string.btn_washroom));
+        ((TextView) findViewById(R.id.btn_label_water_fountain)).setText(getResources().getString(R.string.btn_water_fountain));
+        ((TextView) findViewById(R.id.btn_label_addiction_clinic)).setText(getResources().getString(R.string.btn_addiction_clinic));
+        ((TextView) findViewById(R.id.btn_label_hospital)).setText(getResources().getString(R.string.btn_hospital));
+        ((TextView) findViewById(R.id.btn_label_care_home)).setText(getResources().getString(R.string.btn_care_home));
+
+        setButtonOnClickListeners();
+    }
+
     private void updateData() {
         listOfLocations = new ArrayList<>();
         new JSONLoader(this, listOfLocations, serializedFileLocation).execute();
@@ -70,19 +84,24 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (viewElement.getId()) {
                     case R.id.btn_water_fountain:
-                        intent.putExtra("places", listOfLocations.get(0));
+                        intent.putExtra(MAP_TYPE_INTENT_KEY, listOfLocations.get(0));
+                        ((TextView) findViewById(R.id.btn_label_water_fountain)).setText(R.string.map_opening_message);
                         break;
                     case R.id.btn_washroom:
-                        intent.putExtra("places", listOfLocations.get(1));
+                        intent.putExtra(MAP_TYPE_INTENT_KEY, listOfLocations.get(1));
+                        ((TextView) findViewById(R.id.btn_label_washroom)).setText(R.string.map_opening_message);
                         break;
                     case R.id.btn_hospital:
-                        intent.putExtra("places", listOfLocations.get(2));
+                        intent.putExtra(MAP_TYPE_INTENT_KEY, listOfLocations.get(2));
+                        ((TextView) findViewById(R.id.btn_label_hospital)).setText(R.string.map_opening_message);
                         break;
                     case R.id.btn_care_home:
-                        intent.putExtra("places", listOfLocations.get(3));
+                        intent.putExtra(MAP_TYPE_INTENT_KEY, listOfLocations.get(3));
+                        ((TextView) findViewById(R.id.btn_label_care_home)).setText(R.string.map_opening_message);
                         break;
                     case R.id.btn_addiction_clinic:
-                        intent.putExtra("places", listOfLocations.get(4));
+                        intent.putExtra(MAP_TYPE_INTENT_KEY, listOfLocations.get(4));
+                        ((TextView) findViewById(R.id.btn_label_addiction_clinic)).setText(R.string.map_opening_message);
                         break;
                     default:
                         //do nothing

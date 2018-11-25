@@ -35,7 +35,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
 
         setTitle((String) getIntent().getExtras().get("Title"));
-        listOfLocations = (ArrayList<Location>) getIntent().getSerializableExtra("places");
+        listOfLocations = (ArrayList<Location>) getIntent().getSerializableExtra(MainActivity.MAP_TYPE_INTENT_KEY);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

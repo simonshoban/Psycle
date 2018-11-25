@@ -9,15 +9,16 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:paddingBottom="20dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginBottom="0dp"
             android:orientation="horizontal">
 
@@ -33,6 +34,7 @@
 
                 <TextView
                     style="@style/ButtonLabelStyle"
+                    android:id="@+id/btn_label_washroom"
                     android:text="@string/btn_washroom"/>
 
             </LinearLayout>
@@ -49,6 +51,7 @@
 
                 <TextView
                     style="@style/ButtonLabelStyle"
+                    android:id="@+id/btn_label_water_fountain"
                     android:text="@string/btn_water_fountain"/>
 
             </LinearLayout>
@@ -58,9 +61,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginBottom="0dp"
             android:orientation="horizontal">
 
@@ -76,6 +77,7 @@
 
                 <TextView
                     style="@style/ButtonLabelStyle"
+                    android:id="@+id/btn_label_addiction_clinic"
                     android:text="@string/btn_addiction_clinic"/>
 
             </LinearLayout>
@@ -92,6 +94,7 @@
 
                 <TextView
                     style="@style/ButtonLabelStyle"
+                    android:id="@+id/btn_label_hospital"
                     android:text="@string/btn_hospital"/>
 
             </LinearLayout>
@@ -101,9 +104,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginBottom="0dp"
             android:orientation="horizontal">
 
@@ -119,6 +120,7 @@
 
                 <TextView
                     style="@style/ButtonLabelStyle"
+                    android:id="@+id/btn_label_care_home"
                     android:text="@string/btn_care_home"/>
 
             </LinearLayout>
@@ -136,6 +138,7 @@
 
                 <TextView
                     style="@style/ButtonLabelStyle"
+                    android:id="@+id/btn_label_update"
                     android:text="@string/btn_update"
                     android:background="@color/colorPrimaryDark"
                     android:textColor="@color/colorWhite"/>
